@@ -13,7 +13,7 @@ Plan = list[Route]
 
 data = None
 distance_matrix = None
-s_arr = None
+distance_saved = None
 thread_solutions = None
 thread_solution_costs = None
 class Package:
@@ -40,7 +40,7 @@ def get_coordinates(coord_str: str):
     return x, y
 def parse_file(file_path: str) -> list[Package]:
     global distance_matrix
-    global s_arr
+    global distance_saved
     data = []
     first = True
 
@@ -85,6 +85,25 @@ def parse_file(file_path: str) -> list[Package]:
 
     return data
 
+def get_seed_route(problem_def: list[Package]) -> list[Route]:
+    visit = []
+    route_list: list[Route] = []
+    i = random.randint(0,len(distance_saved)-1)
+    for j in range(i,len(distance_saved)):
+        diff = distance_saved[j][0]
+        i1 = distance_saved[j][1]
+        i2 = distance_saved[j][2]
+        dis = (distance_matrix[0][i1] + distance_matrix[i1][0] + distance_matrix[0][i2] + distance_matrix[i2][0]) - diff
+        if dis <= MAX_MILES_PER_CAR and i1 not in visit and i2 not in visit:
+            visit.append(i1)
+            visit.append(i2)
+            route_list.append([i1,i2])
+    if len(visit) != len(data)-1:
+        for k in range(1,len(data)):
+            if k not in visit:
+                visit.append(k)
+                route_list.append([k])
+    return route_list
 if __name__ == "__main__":
     random.seed(432638267)
     filename = sys.argv[1]
