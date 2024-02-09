@@ -2,4 +2,4 @@
 
 # This innovative approach is inspired by the scholarly work titled "Large Neighbourhood Search with Adaptive guided Ejection Search for the Pickup and Delivery Problem with Time Windows."
 
-# Provided more time i would like to explore branch and bound algorithm, since its has exponential complexity I didnt want to risk implementing it in this case. But I would love to compare it the current solution and determine futher optimization.
+# Provided more time I would like to explore branch and bound algorithm, since its has exponential complexity I didnt want to risk implementing it in this case. But I would love to compare it the current solution and determine futher optimization.
