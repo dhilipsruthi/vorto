@@ -309,4 +309,4 @@ if __name__ == "__main__":
             overal_best = thread_solutions[i]
     #print the output
     for truck_route in overal_best:
-        print(truck_route, "\n", sep="", end="")
+        print(truck_route)
