@@ -104,6 +104,34 @@ def get_seed_route(problem_def: list[Package]) -> list[Route]:
                 visit.append(k)
                 route_list.append([k])
     return route_list
+
+def get_route_cost(route: Route) -> float:
+    route_cost = distance_matrix[0][route[0]] + distance_matrix[route[-1]][0]
+
+    for pkg_idx in range(1, len(route)):
+        route_cost += distance_matrix[route[pkg_idx - 1]][route[pkg_idx]]
+
+    return route_cost
+def cost(plan: Plan) -> float:
+    total_cost = 500 * len(plan)
+
+    for route in plan:
+        route_cost = get_route_cost(route)
+
+        total_cost += route_cost
+
+    return total_cost
+
+def perform_optimization(thread_idx: int):
+    global data
+
+    # Create a seed list of routes that are feasible
+    seed_route: Route = get_seed_route(data)
+
+    best_plan = seed_route
+    best_cost = cost(best_plan)
+
+
 if __name__ == "__main__":
     random.seed(432638267)
     filename = sys.argv[1]
